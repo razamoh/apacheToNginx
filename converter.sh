@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Apache to Nginx Configuration Conversion Script
+# Developed by razamoh - https://github.com/razamoh
+# This script automates the migration of Apache virtual host configurations to Nginx.
+# Use this script at your own risk. Always review the generated configurations before deploying to production.
+
+
 # Default paths for Apache and Nginx configurations
 APACHE_SITES_AVAILABLE="/etc/apache2/sites-available"
 NGINX_SITES_AVAILABLE="/etc/nginx/sites-available"
