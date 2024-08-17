@@ -11,6 +11,9 @@ APACHE_SITES_AVAILABLE="/etc/apache2/sites-available"
 NGINX_SITES_AVAILABLE="/etc/nginx/sites-available"
 NGINX_SITES_ENABLED="/etc/nginx/sites-enabled"
 
+# Default SSL certificate paths (can be overridden)
+DEFAULT_SSL_CERT_PATH="/etc/letsencrypt/live"
+DEFAULT_SSL_KEY_PATH="/etc/letsencrypt/live
 # Default dry run mode (false)
 DRY_RUN=false
 
@@ -54,8 +57,8 @@ detect_php_fpm_socket() {
 # Function to verify SSL certificates
 verify_ssl_certificates() {
     local server_name="$1"
-    local cert_path="/etc/letsencrypt/live/${server_name}/fullchain.pem"
-    local key_path="/etc/letsencrypt/live/${server_name}/privkey.pem"
+    local cert_path="${2:-$DEFAULT_SSL_CERT_PATH}/${server_name}/fullchain.pem"
+    local key_path="${3:-$DEFAULT_SSL_KEY_PATH}/${server_name}/privkey.pem"
 
     # Verify that certificates exist and are valid
     if [[ -f "$cert_path" && -f "$key_path" ]]; then
@@ -70,6 +73,7 @@ verify_ssl_certificates() {
         echo ""
     fi
 }
+
 
 # Function to generate Nginx configuration based on extracted directives
 generate_nginx_config() {
